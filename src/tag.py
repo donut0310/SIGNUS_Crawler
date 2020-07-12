@@ -54,7 +54,7 @@ def tagging(URL, title):
 	title = title.upper()
 
 	# 데티즌 공모전 + 잡코리아
-	elif info[0] in ["sj35", "sj36", "sj37", "sj39", "sj43"]:
+	if info[0] in ["sj35", "sj36", "sj37", "sj39", "sj43"]:
 		tag_udream(info, title, tag_list, title_tag)
 	#씽굿
 	elif info[0] == 'sj25':
