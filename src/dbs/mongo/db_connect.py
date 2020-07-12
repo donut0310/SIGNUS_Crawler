@@ -20,7 +20,7 @@ def connect_db():
 		client = MongoClient(data[0], int(data[1]))
 	else:
 		client = MongoClient('mongodb://%s:%s@%s' %(MONGODB_ID, MONGODB_PW, MONGODB_HOST))
-	db = client['soojle']
+	db = client['signus']
 
 	return (client, db)
 
