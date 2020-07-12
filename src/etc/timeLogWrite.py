@@ -7,9 +7,9 @@ import copy
 def log_write(start_time, end_time, db, BEFORE_DATA):
 	# 로그 파일 열기
 	if platform().startswith("Windows"):
-		f = open("./log/crawler_error.log", 'a')
+		f = open("./log/signus_crawler_error.log", 'a')
 	else:
-		f = open("/home/iml/log/crawler_error.log", 'a')
+		f = open("/home/iml/log/signus_crawler_error.log", 'a')
 
 
 	# Data 분류
@@ -103,9 +103,9 @@ def log_write(start_time, end_time, db, BEFORE_DATA):
 def log_ready(start_time, db):
 	# 로그 파일 열기
 	if platform().startswith("Windows"):
-		f = open("./log/crawler_error.log", 'a')
+		f = open("./log/signus_crawler_error.log", 'a')
 	else:
-		f = open("/home/iml/log/crawler_error.log", 'a')
+		f = open("/home/iml/log/signus_crawler_error.log", 'a')
 
 
 	# Data 분류
