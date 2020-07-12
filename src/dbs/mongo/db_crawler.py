@@ -16,9 +16,7 @@ def init_crawler_collection(db):
 	info_hidden_list = []	# everytime etc..
 	for component in List:
 		info_list.append(component['info'])
-	info_list.remove('sj23_everytime_book')
 	info_list.remove('sj34_everytime_all')
-	info_hidden_list.append('sj23_everytime_book')
 	info_hidden_list.append('sj34_everytime_all')
 
 	query = {
