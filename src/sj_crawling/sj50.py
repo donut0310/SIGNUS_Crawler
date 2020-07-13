@@ -60,7 +60,6 @@ def Parsing_post_data(driver, post_url, URL, lastly_post):
 		else:
 			last_posts = posts
 
-		print(len(posts))
 		for post in posts[now_num:]:
 			try:
 				post_data = {}
