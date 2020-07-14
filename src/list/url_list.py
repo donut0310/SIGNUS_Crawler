@@ -36,7 +36,7 @@ List = (\
 	#캠퍼스픽 동아리 [sj28_campuspick_club]
 	#8
 	{'url': "https://www.campuspick.com/club?category=2",\
-	'info': "sj28_campuspick_club",\
+	'info': "sj28_campusp6_ick_club",\
 	'title_tag' : ["캠퍼스픽", "동아리&모임"], 'login' : 0},\
 	#9
 	#에브리타임 모든 게시판 [sj34_everytime_all]

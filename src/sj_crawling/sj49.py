@@ -17,6 +17,7 @@ def Parsing_list_url(URL, bs):
 	posts = bs.find("div", {"class": 'news mynews section _prs_nws'}).find("ul",{"class":"type01"}).find_all("li", id = True)
 	for post in posts:
 		List.append(post)
+		print("개수 : ",len(List))
 	return List
 
 # 날짜 form 변경
@@ -65,7 +66,7 @@ def Parsing_post_data(bs, URL):
 	list_url = bs.find("dt").find("a")['href']
 	list_post = URLparser(list_url)
 	list_post = BeautifulSoup(list_post,'html.parser')
-
+	print("\n","::::::",title,"\n","::::::",dateform)
 	if list_post.find("meta", {"property": "og:image"}) is None:
 		img = 7
 	else:
