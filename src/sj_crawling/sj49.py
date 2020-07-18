@@ -1,24 +1,56 @@
-from url_list import List
 from bs4 import BeautifulSoup
-
+from url_list import List
 from post_wash import post_wash
-from datetime import timedelta
 import datetime
-from date_cut import date_cut_dict
 import tag
+import everytime
+from driver_agent import chromedriver
+from date_cut import date_cut
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
 from img_size import img_size
-from url_parser import URLparser
 
 
 
-#게시판 n페이지를 받으면, 그 페이지의 포스트 url 리스트 반환
-def Parsing_list_url(URL, bs):
+#게시판 page_url 을 받으면, 그 페이지의 포스트 url 들을 반환
+def Parsing_list_url(URL, page_url):
 	List = []
-	posts = bs.find("div", {"class": 'news mynews section _prs_nws'}).find("ul",{"class":"type01"}).find_all("li", id = True)
-	for post in posts:
-		List.append(post)
-		print("개수 : ",len(List))
-	return List
+
+	#만약 driver이 켜져있으면 끄고, 없으면 그냥 진행
+	try:
+		driver.quit()
+	except:
+		pass
+
+	driver = chromedriver()
+	driver.get(page_url)
+	WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "main_pack")))
+	time.sleep(2)
+	
+	html = driver.page_source
+	bs = BeautifulSoup(html, 'html.parser')
+
+	try:
+		posts = bs.find("ul",{"class":"type01"}).find_all("li")
+	except:
+		try:
+			posts = bs.find("ul",{"class":"type01"}).find_all("dt")
+		except:
+			data = (driver, List)
+			return data
+	try:
+		for post in posts:
+			url = (post.find("a")["href"])
+			List.append(url)
+	except:
+		List = []
+
+	data = (driver, List)
+	for item in List:
+		print(item)
+	return data
 
 # 날짜 form 변경
 def change_date_form(dateform):

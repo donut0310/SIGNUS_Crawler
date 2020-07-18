@@ -10,7 +10,7 @@ from error_handler import error_handler
 from error_handler import continue_handler
 from db_health import is_crawling
 import time
-import sj25, sj26, sj27, sj28, sj34, sj35,\
+import sj25, sj26, sj27, sj28, sj35,\
 sj36, sj37, sj39, sj43, sj45, sj46, sj47, sj48, sj49,\
 sj50, sj51, sj52, sj53
 
@@ -41,7 +41,7 @@ def Crawling(URL, db):
 
 	while True:
 		# if crawling_name in ["sj23", "sj26", "sj27", "sj28", "sj30", "sj44"]:
-		if crawling_name in ["sj26", "sj27", "sj28", "sj50", "sj51"]:
+		if crawling_name in ["sj26", "sj27", "sj28",  "sj49", "sj50", "sj51"]:
 			lastly_post = get_lastly_post(URL, db)
 		try:
 			print("\npage_url :::: ", page_url)	#현재 url 출력
@@ -50,7 +50,7 @@ def Crawling(URL, db):
 			driver_page = URLparser(page_url)
 			#-------------------------------------------
 			#Selenium을 쓰는 경우----------------------------------------------------------------------------------------------
-			if crawling_name in ["sj26", "sj27", "sj28", "sj50", "sj51", "sj52"]:
+			if crawling_name in ["sj26", "sj27", "sj28", "sj49", "sj50", "sj51", "sj52"]:
 				data = eval(crawling_name + '.Parsing_list_url(URL, page_url)')
 				driver = data[0]
 				post_urls = data[1]
@@ -85,7 +85,7 @@ def Crawling(URL, db):
 			for post_url in post_urls:
 				#Selenium인 경우--------------------------------------------------------------------------------------------------------------------
 				#------------------게시판 규격인 경우
-				if crawling_name in ['sj29', 'sj30','sj52']:
+				if crawling_name in ['sj49', 'sj52']:
 					try:
 						get_post_data = eval(crawling_name + '.Parsing_post_data(driver, post_url, URL)')
 					except:
@@ -94,21 +94,7 @@ def Crawling(URL, db):
 						except:
 							continue
 				# ----------------------------게시판 규격이 아닌 경우
-				elif crawling_name in ['sj23', 'sj26', 'sj27', 'sj28', 'sj44', 'sj50', 'sj51']:
-					try:
-						data = eval(crawling_name + '.Parsing_post_data(driver, post_url, URL, lastly_post)')
-					except:
-						try:
-							data = eval(crawling_name + '.Parsing_post_data(driver, post_url, URL, lastly_post)')
-						except:
-							continue
-					post_data_prepare = data[0]
-					lastly_post = data[1]
-					if lastly_post is None:
-						pass
-					else:
-						push_lastly_post(URL, lastly_post, db)
-				if crawling_name in ['sj26', 'sj27', 'sj28']:
+				elif crawling_name in ['sj26', 'sj27', 'sj28', 'sj44', 'sj50', 'sj51']:
 					try:
 						data = eval(crawling_name + '.Parsing_post_data(driver, post_url, URL, lastly_post)')
 					except:
@@ -123,8 +109,8 @@ def Crawling(URL, db):
 					else:
 						push_lastly_post(URL, lastly_post, db)
 				#Requests인 경우--------------------------------------------------------------------------------------------------------------------
-				elif crawling_name == "sj49":
-					get_post_data = eval(crawling_name + '.Parsing_post_data(post_url, URL)')
+				# elif crawling_name == "sj49":
+				# 	get_post_data = eval(crawling_name + '.Parsing_post_data(post_url, URL)')
 				else:
 					#driver_post 생성--------------------------------
 					# if crawling_name in ["sj21", "sj4", "sj5", "sj8", "sj16"]: #---driver_post가 필요없는 경우
@@ -136,27 +122,6 @@ def Crawling(URL, db):
 					# else:
 					driver_post = URLparser(post_url)
 					#------------------------------------------------
-					#-----------------------------------------------------------------------------------------------위키백과 구조
-					# if crawling_name in ['sj21']:
-					# 	try:
-					# 		get_post_data = eval(crawling_name + '.Parsing_post_data(post_url, URL)')
-					# 	except:
-					# 		try:
-					# 			get_post_data = eval(crawling_name + '.Parsing_post_data(post_url, URL)')
-					# 		except:
-					# 			continue
-					#-----------------------------------------------------------------------------------------------게시판 규격이 아닌 구조
-					# elif crawling_name in ["sj4", "sj5", "sj8", "sj16"]:
-					# 	try:
-					# 		post_data_prepare = eval(crawling_name + '.Parsing_post_data(post_url, URL)')
-					# 	except:
-					# 		try:
-					# 			post_data_prepare = eval(crawling_name + '.Parsing_post_data(post_url, URL)')
-					# 		except:
-					# 			continue
-					# 	break
-					#-----------------------------------------------------------------------------------------------게시판 규격인 구조
-					# else:
 					if driver_post is None:		#Connect Failed 이면 continue
 						error_handler("driver_none", URL, page_url, db)
 						break
@@ -204,15 +169,15 @@ def Crawling(URL, db):
 			print("add_OK : ", add_cnt)	#DB에 저장된 게시글 수 출력
 			
 			#dirver 종료 [Selenium 을 사용했을 시]
-			if crawling_name in ["sj26", "sj27", "sj28", "sj50", "sj51", "sj52"]:
+			if crawling_name in ["sj26", "sj27", "sj28", "sj49", "sj50", "sj51", "sj52"]:
 				driver.quit()
 			
 			#DB에 추가된 게시글이 0 이면 break, 아니면 다음페이지
 			if add_cnt == 0:
 				break
-			elif crawling_name == "sj49":
-				page += 10
-				page_url = eval(crawling_name + '.Change_page(main_url, page)')
+			# elif crawling_name == "sj49":
+			# 	page += 10
+			# 	page_url = eval(crawling_name + '.Change_page(main_url, page)')
 			else:
 				page += 1
 				page_url = eval(crawling_name + '.Change_page(main_url, page)')

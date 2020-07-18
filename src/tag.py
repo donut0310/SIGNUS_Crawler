@@ -65,9 +65,6 @@ def tagging(URL, title):
 	#캠퍼스픽 스터디
 	elif info[0] == 'sj27':
 		tag_campuspick_study(info, title, tag_list, title_tag)
-	#에브리타임
-	elif info[0] == 'sj34':
-		tag_everytime(info, title, tag_list ,title_tag)
 	#무중력지대
 	elif info[0] == 'sj45':
 		tag_zero_gravity(info, title, tag_list ,title_tag)			
@@ -101,7 +98,6 @@ def tagging(URL, title):
 
 #무중력 지대
 def tag_zero_gravity(info, title, tag_list, title_tag):
-	title = title.upper()
 	for titletag in title_tag:
 		if titletag == "":
 			break
@@ -111,7 +107,6 @@ def tag_zero_gravity(info, title, tag_list, title_tag):
 
 #애드 캠퍼스
 def tag_addCampus(info, title, tag_list, title_tag):
-	title = title.upper()
 	for titletag in title_tag:
 		if titletag == "":
 			break
@@ -121,7 +116,6 @@ def tag_addCampus(info, title, tag_list, title_tag):
 
 #20대 연구소
 def tag_20slab(info, title, tag_list, title_tag):
-	title = title.upper()
 	for titletag in title_tag:
 		if titletag == "":
 			break
@@ -129,9 +123,8 @@ def tag_20slab(info, title, tag_list, title_tag):
 			tag_list.append(titletag)	
 	tagging_public(title, tag_list)
 
-#20대 연구소
+#VMS
 def tag_vms(info, title, tag_list, title_tag):
-	title = title.upper()
 	for titletag in title_tag:
 		if titletag == "":
 			break
@@ -141,7 +134,6 @@ def tag_vms(info, title, tag_list, title_tag):
 
 #네이버 뉴스 '대학교'
 def tag_naver_news(info, title, tag_list, title_tag):
-	title = title.upper()
 	for titletag in title_tag:
 		if titletag == "":
 			break
@@ -151,7 +143,6 @@ def tag_naver_news(info, title, tag_list, title_tag):
 
 #대학 내일
 def tag_univ20(info, title, tag_list, title_tag):
-	title = title.upper()
 	for titletag in title_tag:
 		if titletag == "":
 			break
@@ -161,7 +152,6 @@ def tag_univ20(info, title, tag_list, title_tag):
 
 #온라인 청년 센터
 def tag_youthcenter(info, title, tag_list, title_tag):
-	title = title.upper()
 	for titletag in title_tag:
 		if titletag == "":
 			break
@@ -171,42 +161,11 @@ def tag_youthcenter(info, title, tag_list, title_tag):
 	
 #한국 장학재단
 def tag_kosaf(info, title, tag_list, title_tag):
-	title = title.upper()
 	for titletag in title_tag:
 		if titletag == "":
 			break
 		else:
 			tag_list.append(titletag)	
-	tagging_public(title, tag_list)
-
-#세종대 메인사이트 tagging 함수
-def tag_main(info, title, tag_list, title_tag):
-	title = title.upper() # 모든 title 은 대문자로 만들어준다.
-	
-	for titletag in title_tag:
-		if titletag == "":
-			break
-		else:
-			tag_list.append(titletag)
-
-	#공지사항을 만들기위해서 중요태그를 달아준다
-	if info[2] == 'student':
-		if title.find("신청") != -1 or title.find("안내") != -1 or title.find("공지") != -1:
-			tag_list.append("중요")
-
-	if title.find("입학") != -1:
-		tag_list.append("입학")
-	
-	tagging_public(title, tag_list)
-
-#세종대 에브리타임 tagging 함수
-def tag_everytime(info, title, tag_list ,title_tag):
-	for titletag in title_tag:
-		if titletag == "":
-			break
-		else:
-			tag_list.append(titletag)
-
 	tagging_public(title, tag_list)
 
 #씽굿 tagging 함수
@@ -242,7 +201,49 @@ def tag_campuspick_study(info, title, tag_list ,title_tag):
 	if "알바&구인" in tag_list:
 		tag_list.remove("알바&구인")
 
+def tag_udream(info, title, tag_list, title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+	
+	#학생경력개발시스템 사이트만의 tagging
+	if title.find("경력") != -1:
+		tag_list.append("경력")
+	if title.find("신입") != -1:
+		tag_list.append("신입")
+	if title.find("기획") != -1 or title.find("설계") != -1 or (real_word(title, "PM") == 2):
+		tag_list.append("기획")
+	if title.find("회계") != -1 or title.find("경리") != -1:
+		tag_list.append("회계")
+	if title.find("엔지니어") != -1 or title.find("ENGINEER") != -1 or title.find("캐드") != -1 or (real_word(title, "CAD") == 3) or title.find("기술부") != -1\
+	 or title.find("기술자") != -1 or title.find("H/W") != -1 or (real_word(title, "HW") == 2) or title.find("정비") != -1 or title.find("조립") != -1\
+	  or title.find("용접") != -1 or title.find("조작") != -1 or title.find("전기공") != -1 or title.find("세공") != -1 or title.find("승강기") != -1\
+	   or title.find("엘리베이터") != -1:
+		tag_list.append("기술직")
+	if title.find("치과") != -1 or title.find("치료사") != -1 or title.find("보건") != -1 or title.find("의료") != -1 or title.find("의원") != -1\
+	 or title.find("간호사") != -1 or title.find("한의사") != -1 or title.find("제약") != -1 or title.find("병원") != -1 or title.find("한약") != -1\
+	  or ((title.find("약사") != -1) and (title.find("약사신문") == -1)) or ((title.find("약물") != -1) and (title.find("기계") == -1))\
+	   or ((title.find("의약품") != -1) and (title.find("기계") == -1)):
+		tag_list.append("의료직")
+	if title.find("교사") != -1 or title.find("강사") != -1:
+		tag_list.append("교직")
+	if title.find("영업") != -1 or title.find("마케팅") != -1 or title.find("세일즈맨"):
+		tag_list.append("마케팅")
+	if title.find("일식") != -1 or title.find("중식") != -1 or title.find("한식") != -1 or title.find("조리사") != -1 or title.find("주방") != -1:
+		tag_list.append("조리직")
+	if title.find("상담사") != -1 or title.find("상담가") != -1 or title.find("상담원") != -1 or title.find("콜센터") != -1 or title.find("미용실") != -1\
+	 or title.find("미용사") != -1 or title.find("관리사") != -1 or title.find("배달") != -1 or title.find("계산원") != -1\
+	  or title.find("진행원") != -1 or title.find("택배") != -1 or title.find("관리인") != -1:
+		tag_list.append("서비스직")
+	if title.find("해외") != -1 or title.find("미국") != -1 or title.find("일본") != -1 or title.find("중국") != -1 or title.find("독일") != -1\
+	 or title.find("삿포로") != -1 or title.find("중화권") != -1 or title.find("영어권") != -1 or title.find("SJ GLOVAL JOBS") != -1:
+		tag_list.append("해외")
+	if title.find("연수") != -1:
+		tag_list.append("공모전&대외활동")
 
+	tagging_public(title, tag_list)
 
 
 
