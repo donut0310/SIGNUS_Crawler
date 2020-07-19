@@ -48,7 +48,7 @@ def Crawling(URL, db):
 			print("Page : ", page)				#현재 페이지 출력
 			#driver_page 생성---------------------------
 			driver_page = URLparser(page_url)
-			#-------------------------------------------
+			#---------------------z----------------------
 			#Selenium을 쓰는 경우----------------------------------------------------------------------------------------------
 			if crawling_name in ["sj26", "sj27", "sj28", "sj49", "sj50", "sj51", "sj52"]:
 				data = eval(crawling_name + '.Parsing_list_url(URL, page_url)')
