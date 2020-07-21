@@ -111,24 +111,24 @@ List = (\
 	{'url': "https://www.vms.or.kr/partspace/recruit.do?area=&areagugun=&acttype=&status=1&termgbn=&page=",\
 	'info': "sj48_vms_volunteer",\
 	'title_tag' : ["봉사"], 'login' : 0},\
-	# 26 Naver news 대학교
-	# {'url': "https://search.naver.com/search.naver?where=news&sm=tab_jum&query=%EB%8C%80%ED%95%99%EA%B5%90",\
-	# 'info': "sj49_naver_news",\
-	# 'title_tag' : ["소식"], 'login' : 0},\
-	# 27 캠퍼스픽 커뮤니티 - 알바
+	# 26 캠퍼스픽 커뮤니티 - 알바
 	{'url': "https://www.campuspick.com/community?id=3098",\
 	'info': "sj50_campuspick_parttime",\
 	'title_tag' : ["알바&구인"], 'login' : 0},\
-	# 28 대학내일
+	# 27 대학내일
 	{'url': "https://univ20.com/",\
 	'info': "sj51_univ20_main",\
 	'title_tag' : ["소식"], 'login' : 0},\
-	# 29 온라인 청년센터
+	# 28 온라인 청년센터
 	{'url': "https://www.youthcenter.go.kr/board/boardList.do?bbsNo=3&ntceStno=&pageUrl=board%2Fboard&orderBy=REG_DTM&orderMode=DESC&pageIndex=",\
 	'info': "sj52_youthcenter_info",\
 	'title_tag' : ["소식"], 'login' : 0},\
-	# 30 한국 장학재단 공지사항
+	# 29 한국 장학재단 공지사항
 	{'url': "https://www.kosaf.go.kr/ko/notice.do?&page=",\
 	'info': "sj53_kosaf_info",\
+	'title_tag' : ["소식"], 'login' : 0},\
+	# 30 Naver news 대학교
+	{'url': "https://search.naver.com/search.naver?&where=news&query=%EB%8C%80%ED%95%99%EA%B5%90&sm=tab_pge&sort=0&photo=0&field=0&reporter_article=&pd=0&ds=&de=&docid=&nso=so:r,p:all,a:all&mynews=0&start=&refresh_start=0",\
+	'info': "sj54_naver_news",\
 	'title_tag' : ["소식"], 'login' : 0},\
 	)

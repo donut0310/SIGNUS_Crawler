@@ -11,14 +11,15 @@ from error_handler import continue_handler
 from db_health import is_crawling
 import time
 import sj25, sj26, sj27, sj28, sj35,\
-sj36, sj37, sj39, sj43, sj45, sj46, sj47, sj48, sj49,\
-sj50, sj51, sj52, sj53
+sj36, sj37, sj39, sj43, sj45, sj46, sj47, sj48,\
+sj50, sj51, sj52, sj53, sj54
 
 
 
 def Crawling(URL, db):
 	driver = None
 	info_name = URL['info'].split('_')
+
 	crawling_name = info_name[0]	#게시판 크롤링 선택
 	page = 1
 	main_url = URL['url']	#게시판 url 추출 : 페이지 바꾸는 데에 사용
@@ -41,7 +42,7 @@ def Crawling(URL, db):
 
 	while True:
 		# if crawling_name in ["sj23", "sj26", "sj27", "sj28", "sj30", "sj44"]:
-		if crawling_name in ["sj26", "sj27", "sj28",  "sj49", "sj50", "sj51"]:
+		if crawling_name in ["sj26", "sj27", "sj28", "sj50", "sj51"]:
 			lastly_post = get_lastly_post(URL, db)
 		try:
 			print("\npage_url :::: ", page_url)	#현재 url 출력
@@ -50,7 +51,7 @@ def Crawling(URL, db):
 			driver_page = URLparser(page_url)
 			#---------------------z----------------------
 			#Selenium을 쓰는 경우----------------------------------------------------------------------------------------------
-			if crawling_name in ["sj26", "sj27", "sj28", "sj49", "sj50", "sj51", "sj52"]:
+			if crawling_name in ["sj26", "sj27", "sj28", "sj50", "sj51", "sj52"]:
 				data = eval(crawling_name + '.Parsing_list_url(URL, page_url)')
 				driver = data[0]
 				post_urls = data[1]
@@ -75,6 +76,9 @@ def Crawling(URL, db):
 					if crawling_name == "sj47":
 						pageidx = page_url.split('=')[1]
 						post_urls = eval(crawling_name + '.Parsing_list_url(URL, bs_page, pageidx)')
+					#네이버 뉴스기사
+					elif crawling_name == "sj54":
+						post_urls = eval(crawling_name + '.Parsing_list_url(URL, page_url)')
 					else:		
 						post_urls = eval(crawling_name + '.Parsing_list_url(URL, bs_page)')
 				#-----------------------------------------------------------------------------------------------
@@ -85,7 +89,7 @@ def Crawling(URL, db):
 			for post_url in post_urls:
 				#Selenium인 경우--------------------------------------------------------------------------------------------------------------------
 				#------------------게시판 규격인 경우
-				if crawling_name in ['sj49', 'sj52']:
+				if crawling_name in ['sj52']:
 					try:
 						get_post_data = eval(crawling_name + '.Parsing_post_data(driver, post_url, URL)')
 					except:
@@ -135,21 +139,29 @@ def Crawling(URL, db):
 						bs_post = BeautifulSoup(driver_post, 'html.parser')
 						#-------------------------------------------------------
 					try:
-						print("첫번째 시도 : ",post_url)
 						get_post_data = eval(crawling_name + '.Parsing_post_data(bs_post, post_url, URL)')
 					except:
 						try:
-							print("내가 문제다 : ",post_url)
 							get_post_data = eval(crawling_name + '.Parsing_post_data(bs_post, post_url, URL)')
 						except:
 							continue
 				#-----------------------------------------------------------------------------------------------------------------------------------
-				
 				#post_data_prepare이 이미 완성된 경우-----------------------------------------------------------------------
 				# if crawling_name in ["sj4", "sj5", "sj8", "sj16", "sj23", "sj26", "sj27", "sj28", "sj44"]:
 				if crawling_name in ["sj26", "sj27", "sj28", "sj50", "sj51"]:
 					pass
 				#post_data_prepare이 완성되지 않은 경우---------------------------------------------------------------------
+				# 네이버 뉴스 기사
+				elif crawling_name == "sj54":
+					if get_post_data == None:	#잘못된 포스트 데이터인 경우
+						continue
+					for item in get_post_data:	
+						date = item["date"]
+						#게시물의 날짜가 end_date 보다 옛날 글이면 continue, 최신 글이면 append
+						if str(date) <= end_date:
+							continue
+						else:
+							post_data_prepare.append(item)
 				else:
 					if get_post_data == None:	#잘못된 포스트 데이터인 경우
 						continue
@@ -169,15 +181,15 @@ def Crawling(URL, db):
 			print("add_OK : ", add_cnt)	#DB에 저장된 게시글 수 출력
 			
 			#dirver 종료 [Selenium 을 사용했을 시]
-			if crawling_name in ["sj26", "sj27", "sj28", "sj49", "sj50", "sj51", "sj52"]:
+			if crawling_name in ["sj26", "sj27", "sj28", "sj50", "sj51", "sj52"]:
 				driver.quit()
 			
 			#DB에 추가된 게시글이 0 이면 break, 아니면 다음페이지
 			if add_cnt == 0:
 				break
-			# elif crawling_name == "sj49":
-			# 	page += 10
-			# 	page_url = eval(crawling_name + '.Change_page(main_url, page)')
+			elif crawling_name == "sj54":
+				page += 10
+				page_url = eval(crawling_name + '.Change_page(main_url, page)')
 			else:
 				page += 1
 				page_url = eval(crawling_name + '.Change_page(main_url, page)')
