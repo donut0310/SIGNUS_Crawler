@@ -65,10 +65,19 @@ def Parsing_post_data(bs, post_url, URL):
 		date = ''
 		domain = ''
 		date_parsed = item.find("dd",{"class":"txt_inline"}).get_text(" ",strip = True).split(" ")
-		if date_parsed[1] == "언론사":
-			date = change_date_form(date_parsed[3])
-		else :
+		list_size = len(date_parsed)
+		if list_size <= 4: # ['출처','n시간','전','보내기'] , ['출처','2000-00-00','보내기']
 			date = change_date_form(date_parsed[1])
+		elif list_size == 5: #['출처','n시간','전','네이버뉴스','보내기'],['출처','위치','n시간','전','보내기']
+			if '네이버뉴스' in date_parsed:
+				date = change_date_form(date_parsed[1])
+			else :
+				date = change_date_form(date_parsed[2])
+		elif list_size == 6: #['출처','위치','시간','전','네이버뉴스','보내기']
+			date = change_date_form(date_parsed[2])
+		else: #['출처','언론사','선정','n시간','전','보내기']
+			date = change_date_form(date_parsed[3])
+		print("::::",date)
 		post = item.find("dd", {"class": "txt_inline"}).find_next('dd').get_text(" ", strip = True)
 		post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
 		tag_done = tag.tagging(URL, title)
