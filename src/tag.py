@@ -53,41 +53,112 @@ def tagging(URL, title):
 	#소문자를 전부 대문자화 시켜준다
 	title = title.upper()
 
-	# 데티즌 공모전 + 잡코리아
-	if info[0] in ["sj35", "sj36", "sj37", "sj39", "sj43"]:
+	#세종대 main 사이트
+	if info[0] in ['sj1', 'sj44']:
+		tag_main(info, title, tag_list, title_tag)
+	#세종대 udream 사이트 + 데티즌 공모전 + 잡코리아
+	elif info[0] in ["sj2", "sj3", "sj4", "sj5", "sig35", "sig36", "sj37", "sj38", "sj39", "sj40", "sj41", "sj42", "sj43"]:
 		tag_udream(info, title, tag_list, title_tag)
+	#세종대 학술정보원 사이트
+	elif info[0] == 'sj6':
+		tag_library(info, title, tag_list, title_tag)
+	#세종대 홍보원 사이트
+	elif info[0] in ["sj7", "sj8"]:
+		tag_promotion(info, title, tag_list, title_tag)
+	#세종대 학과사이트
+	elif info[0] in ["sj9", "sj10", "sj11", "sj12", "sj13", "sj14"]:
+		tag_major(info, title, tag_list, title_tag)
+	#세종대 대양휴머니티칼리지
+	elif info[0] == 'sj15':
+		tag_classic(info, title, tag_list, title_tag)
+	#네이버카페
+	elif info[0] == 'sj16':
+		tag_naver(info, title, tag_list, title_tag)
+	#학생생활상담소
+	elif info[0] == 'sj17':
+		tag_mind(info, title, tag_list , title_tag)
+	#SKBS
+	elif info[0] == 'sj18':
+		tag_skbs(info, title, tag_list, title_tag)
+	#총학생회
+	elif info[0] == 'sj19':
+		tag_chong(info, title, tag_list, title_tag)
+	#디시 : 세종대갤러리
+	elif info[0] == 'sj20':
+		tag_dc(info, title, tag_list, title_tag)
+	#세종위키백과
+	elif info[0] == 'sj21':
+		tag_wiki(info, title, tag_list, title_tag)
+	#세종대 에브리타임
+	elif info[0] == 'sj22':
+		tag_everytime(info, title, tag_list ,title_tag)
+	#세종대 에브리타임 책방
+	elif info[0] == 'sj23':
+		tag_everytime_book(info, title, tag_list ,title_tag)
+	#세종알리
+	elif info[0] == 'sj24':
+		tag_sejong_allie(info, title, tag_list, title_tag)
 	#씽굿
-	elif info[0] == 'sj25':
+	elif info[0] == 'sig25':
 		tag_thinkgood_info(info, title, tag_list, title_tag)
 	#캠퍼스픽
-	elif info[0] in ["sj26", "sj28", "sj50"]:
+	elif info[0] in ["sig26", "sig28"]:
 		tag_campuspick(info, title, tag_list, title_tag)
 	#캠퍼스픽 스터디
-	elif info[0] == 'sj27':
+	elif info[0] == 'sig27':
+		tag_campuspick_study(info, title, tag_list, title_tag)
+	#행복기숙사
+	elif info[0] == 'sj29':
+		tag_sejong_dormitory(info, title, tag_list, title_tag)
+	#세종대역
+	elif info[0] == 'sj30':
+		tag_sejong_station(info, title, tag_list, title_tag)
+	#두드림
+	elif info[0] in ["sj31", "sj32"]:
+		tag_sejong_dodream(info, title, tag_list, title_tag)
+	#전자도서관
+	elif info[0] == 'sj33':
+		tag_sejong_mobilelibrary(info, title, tag_list ,title_tag)
+	#에브리타임
+	elif info[0] == 'sj34':
+		tag_everytime(info, title, tag_list ,title_tag)
+
+	# 시그너스 main 
+	# 데티즌 공모전 + 잡코리아
+	elif info[0] in ["sig35", "sig36", "sig37", "sig39", "sig43"]:
+		tag_udream(info, title, tag_list, title_tag)
+	#씽굿
+	elif info[0] == 'sig25':
+		tag_thinkgood_info(info, title, tag_list, title_tag)
+	#캠퍼스픽
+	elif info[0] in ["sig26", "sig28", "sig50"]:
+		tag_campuspick(info, title, tag_list, title_tag)
+	#캠퍼스픽 스터디
+	elif info[0] == 'sig27':
 		tag_campuspick_study(info, title, tag_list, title_tag)
 	#무중력지대
-	elif info[0] == 'sj45':
+	elif info[0] == 'sig45':
 		tag_zero_gravity(info, title, tag_list ,title_tag)			
 	#애드캠퍼스	
-	elif info[0] == 'sj46':
+	elif info[0] == 'sig46':
 		tag_addCampus(info, title, tag_list ,title_tag)
 	#애드캠퍼스	
-	elif info[0] == 'sj47':
+	elif info[0] == 'sig47':
 		tag_20slab(info, title, tag_list ,title_tag)
 	#VMS	
-	elif info[0] == 'sj48':
+	elif info[0] == 'sig48':
 		tag_vms(info, title, tag_list ,title_tag)
 	#네이버 뉴스 '대학교'
-	elif info[0] == 'sj49':
+	elif info[0] == 'sig49':
 		tag_naver_news(info, title, tag_list ,title_tag)
 	#대학내일'
-	elif info[0] == 'sj51':
+	elif info[0] == 'sig51':
 		tag_univ20(info, title, tag_list ,title_tag)
 	#온라인 청년센터
-	elif info[0] == 'sj52':
+	elif info[0] == 'sig52':
 		tag_youthcenter(info, title, tag_list ,title_tag)
 	#한국 장학재단
-	elif info[0] == 'sj53':
+	elif info[0] == 'sig53':
 		tag_kosaf(info, title, tag_list ,title_tag)
 
 	#태그들을 하나의 문자열로 만든 string 반환
@@ -158,7 +229,7 @@ def tag_youthcenter(info, title, tag_list, title_tag):
 		else:
 			tag_list.append(titletag)	
 	tagging_public(title, tag_list)
-	
+
 #한국 장학재단
 def tag_kosaf(info, title, tag_list, title_tag):
 	for titletag in title_tag:
@@ -166,6 +237,221 @@ def tag_kosaf(info, title, tag_list, title_tag):
 			break
 		else:
 			tag_list.append(titletag)	
+	tagging_public(title, tag_list)
+
+#세종대 메인사이트 tagging 함수
+def tag_main(info, title, tag_list, title_tag):
+	title = title.upper() # 모든 title 은 대문자로 만들어준다.
+	
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	#공지사항을 만들기위해서 중요태그를 달아준다
+	if info[2] == 'student':
+		if title.find("신청") != -1 or title.find("안내") != -1 or title.find("공지") != -1:
+			tag_list.append("중요")
+
+	if title.find("입학") != -1:
+		tag_list.append("입학")
+	
+	tagging_public(title, tag_list)
+
+#세종대 학술정보원 tagging 함수
+def tag_library(info, title, tag_list, title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#세종대 홍보원 tagging 함수
+def tag_promotion(info, title, tag_list, title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#세종대 학과사이트 tagging 함수
+def tag_major(info, title, tag_list, title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	if title.find("입학") != -1:
+		tag_list.append("입학")
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#세종대 대양휴머니티칼리지 tagging 함수
+def tag_classic(info, title, tag_list, title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	if title.find("입학") != -1:
+		tag_list.append("입학")
+	if title.find("창의학기") != -1:
+		tag_list.append("창의학기제")
+	if title.find("SHP") != -1:
+		tag_list.append("SHP")
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#네이버카페 tagging 함수
+def tag_naver(info, title, tag_list, title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#학생생활상담소 tagging 함수
+def tag_mind(info, title, tag_list, title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#SKBS tagging 함수
+def tag_skbs(info, title, tag_list, title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#총학생회 tagging 함수
+def tag_chong(info ,title, tag_list ,title_tag):
+	 for titletag in title_tag:
+	 	if titletag == "":
+	 		break
+	 	else:
+	 		tag_list.append(titletag)
+	 if title.find("야식"):
+	 	tag_list.append("중요")
+	 if title.find("공청회"):
+	 	tag_list.append("공청회")
+	 if title.find("스터디룸"):
+	 	tag_list.append("중요")
+	 if title.find("대동제"):
+	 	tag_list.append("중요")
+
+	 tagging_public(title, tag_list)
+
+
+
+
+
+#디시인사이드 : 세종대갤러리 tagging 함수
+def tag_dc(info, title, tag_list ,title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#세종위키백과 tagging 함수
+def tag_wiki(info, title, tag_list ,title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#세종대 에브리타임 tagging 함수
+def tag_everytime(info, title, tag_list ,title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+	tagging_public(title, tag_list)
+
+
+
+
+
+#세종대 에브리타임 tagging 함수
+def tag_everytime_book(info, title, tag_list ,title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
+
+
+
+
+
+#세종알리 tagging 함수
+def tag_sejong_allie(info, title, tag_list ,title_tag):
+	for titletag in title_tag:
+		if titletag == "":
+			break
+		else:
+			tag_list.append(titletag)
+
 	tagging_public(title, tag_list)
 
 #씽굿 tagging 함수

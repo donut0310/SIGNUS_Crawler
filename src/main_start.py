@@ -55,7 +55,7 @@ else:
 
 if __name__ == '__main__':
 	print("\n\n")
-	print(":::< SooJle Project >:::")
+	print(":::< Signus Project >:::")
 	print("TODAY : ", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "\n\n")
 
 

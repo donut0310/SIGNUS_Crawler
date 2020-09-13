@@ -82,7 +82,8 @@ def db_manager(URL, post_data_prepare, db):
 		url_hash_before = post_one['url']
 		url_hash_done = hashlib.md5(url_hash_before.encode('utf-8')).hexdigest()
 		
-		post_one["info"] = URL['info'].split("_")[1] + "_" + URL['info'].split("_")[2]
+		# post_one["info"] = URL['info'].split("_")[1] + "_" + URL['info'].split("_")[2]
+		post_one["info"] = URL['info']
 		for info in POST_INFO:
 			if post_one['info'] == info['info_id']:
 				post_one['info_num'] = info['info_num']
