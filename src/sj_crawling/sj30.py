@@ -18,12 +18,12 @@ import time
 
 
 #게시판 page_url 을 받으면, 그 페이지의 포스트 url 들을 반환
-def Parsing_list_url(URL, page_url, lastly_post, db, driver):
+def Parsing_list_url(URL, page_url, recent_post, db, driver):
 	List = []
 	domain = Domain_check(URL['url'])
 	end_date = date_cut(URL['info'])
 	lastly_num = 0		#한번만 실행하기위한 조건변수
-	#lastly_post = get_lastly_post(URL)	#lastly_post 가져온다
+	#recent_post = get_lastly_post(URL)	#recent_post 가져온다
 	try:
 		driver.get(page_url)
 	except:
@@ -77,7 +77,7 @@ def Parsing_list_url(URL, page_url, lastly_post, db, driver):
 				date = "20" + date + " 00:00:00"
 				date = str(datetime.strptime(date, "%Y.%m.%d %H:%M:%S"))
 
-			if date + title == lastly_post:		#이전 최근 글을 만나면, cnt = 0, break 를 함으로서 만나기 전까지의 List를 보낸다.
+			if date + title == recent_post:		#이전 최근 글을 만나면, cnt = 0, break 를 함으로서 만나기 전까지의 List를 보낸다.
 				cnt = 0
 				lastly_num = 1
 				break
@@ -88,8 +88,8 @@ def Parsing_list_url(URL, page_url, lastly_post, db, driver):
 				cnt += 1
 		time.sleep(3)
 
-		#항상 첫번째페이지의 공지를 제외한 첫번째글이 lastly_post가 되도록 지정해줌
-		if lastly_num == 1 or lastly_post == 0:
+		#항상 첫번째페이지의 공지를 제외한 첫번째글이 recent_post가 되도록 지정해줌
+		if lastly_num == 1 or recent_post == 0:
 			for post in posts:
 				if post.find("td", {"class": "num"}).find("img") != None:
 					continue
@@ -101,8 +101,8 @@ def Parsing_list_url(URL, page_url, lastly_post, db, driver):
 				else:
 					date = "20" + date + " 00:00:00"
 					date = str(datetime.strptime(date, "%Y.%m.%d %H:%M:%S"))
-				lastly_post = date + title
-				push_lastly_post(URL, lastly_post, db)
+				recent_post = date + title
+				push_lastly_post(URL, recent_post, db)
 				break
 
 		if cnt == 0:	#날짜가 전부 옛날이면 break

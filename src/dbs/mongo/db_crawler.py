@@ -20,9 +20,9 @@ def init_crawler_collection(db):
 	info_hidden_list.append('sj34_everytime_all')
 
 	query = {
-		"crawling": False,
-		"start_time": datetime.now(),
-		"end_time": datetime.now()
+		"is_crawling": False,
+		"started_at": datetime.now(),
+		"ended_at": datetime.now()
 	}
 	db.crawler_manager.insert_one(query)
 	for hour in range(24):
@@ -39,7 +39,7 @@ def init_crawler_collection(db):
 	print(":::: crawler_manager CREATE Complete! ::::")
 
 def get_crawler_manager(db):
-	data = db.crawler_manager.find_one({"crawling": {"$exists": True}})
+	data = db.crawler_manager.find_one({"is_crawling": {"$exists": True}})
 	return data
 
 def get_crawler_timeinfo(db):
@@ -52,6 +52,6 @@ def update_crawler_manager(db, data):
 
 def Can_crawling(db):
 	data = get_crawler_manager(db)
-	if data['crawling']:
+	if data['is_crawling']:
 		return False
 	return True

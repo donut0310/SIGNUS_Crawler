@@ -38,7 +38,7 @@ def Parsing_list_url(URL, page_url):
 
 
 #포스트 url을 받으면, 그 포스트의 정보를 dictionary 형태로 반환
-def Parsing_post_data(driver, post_url, URL, lastly_post):
+def Parsing_post_data(driver, post_url, URL, recent_post):
 	post_data_prepare = []
 	domain = Domain_check(URL['url'])
 	end_date = date_cut(URL['info'])
@@ -78,19 +78,19 @@ def Parsing_post_data(driver, post_url, URL, lastly_post):
 					#driver.get(url)
 				except:
 					if len(post_data_prepare) == 0:
-						lastly_post = None
+						recent_post = None
 					else:
-						lastly_post = post_data_prepare[0]['title']
-					data = (post_data_prepare, lastly_post)
+						recent_post = post_data_prepare[0]['title']
+					data = (post_data_prepare, recent_post)
 					return data
 				try:
 					WebDriverWait(post_driver, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.txt_area"))) #a.item을 발견하면 에이작스 로딩이 완료됬다는 가정
 				except:
 					if len(post_data_prepare) == 0:
-						lastly_post = None
+						recent_post = None
 					else:
-						lastly_post = post_data_prepare[0]['title']
-					data = (post_data_prepare, lastly_post)
+						recent_post = post_data_prepare[0]['title']
+					data = (post_data_prepare, recent_post)
 					return data
 				html_post = post_driver.page_source
 				bs_post = BeautifulSoup(html_post, 'html.parser')
@@ -163,7 +163,7 @@ def Parsing_post_data(driver, post_url, URL, lastly_post):
 
 				print(date, "::::", title)
 
-				if (date < end_date) or (title.upper() == lastly_post):
+				if (date < end_date) or (title.upper() == recent_post):
 					break
 				else:
 					post_data_prepare.append(post_data)
@@ -172,13 +172,13 @@ def Parsing_post_data(driver, post_url, URL, lastly_post):
 
 		now_num = len(posts)
 		repeat_num += 1
-		if (date <= end_date) or (title.upper() == lastly_post):
+		if (date <= end_date) or (title.upper() == recent_post):
 			break
 	if len(post_data_prepare) == 0:
-		lastly_post = None
+		recent_post = None
 	else:
-		lastly_post = post_data_prepare[0]['title']
-	data = (post_data_prepare, lastly_post)
+		recent_post = post_data_prepare[0]['title']
+	data = (post_data_prepare, recent_post)
 	post_driver.close()
 	return data
 

@@ -25,7 +25,7 @@ def get_lastly_post(URL, db):
 	#soojle 라는 데이터베이스에 접근
 
 	table_name = URL['info']
-	document = db.lastly_post.find_one({"info_id": table_name})
+	document = db.recent_post.find_one({"info_id": table_name})
 	if document == None:
 		lastly_post_title = 0
 	else:
@@ -37,8 +37,8 @@ def push_lastly_post(URL, lastly_post_title, db):
 	#soojle 라는 데이터베이스에 접근
 
 	table_name = URL['info']
-	db.lastly_post.update_one({"info_id": table_name}, {'$set': {"title": lastly_post_title}})
-	print("\n\n:::: lastly_post INSERT Complete! ::::\n\n")
+	db.recent_post.update_one({"info_id": table_name}, {'$set': {"title": lastly_post_title}})
+	print("\n\n:::: recent_post INSERT Complete! ::::\n\n")
 
 
 def db_manager(URL, post_data_prepare, db):
@@ -111,8 +111,7 @@ def db_manager(URL, post_data_prepare, db):
 			else:
 				post_one["token"] = soojle_tokenize(post_one["title"].lower(), post_one["post"].lower())
 			post_one["token"] = list(post_one["title_token"] + post_one["token"] + post_one['tag'])
-			post_one["login"] = URL["login"]
-			post_one["learn"] = 0
+			# post_one["login"] = URL["login"]
 			del post_one["author"]
 			if 'end_date' in post_one.keys():
 				#post_one["date"] = datetime_to_mongo(post_one["date"])

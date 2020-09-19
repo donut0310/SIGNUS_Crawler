@@ -73,9 +73,9 @@ date_cut_dict_before = {
 }
 
 def date_init(db):
-	date_db = db.date.find()
+	date_db = db.target_expire.find()
 	for date_one in date_db:
-		date_cut_dict[date_one['crawler']] = date_one['date_exp']
+		date_cut_dict[date_one['crawler']] = date_one['expire_date']
 
 
 

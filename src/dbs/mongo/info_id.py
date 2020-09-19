@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 from url_list import List
-from domain_insert import domain_insert
 
 
 
@@ -18,7 +17,7 @@ def post_info(db):
 	#info_id : db게시판 테이블에서 보여지는 식별자값
 	collection = db["post_info"]
 	
-	#info_id : sj_domain, title_tag : 도메인, login : 0 추가
+	#info_id : sj_domain, title_tag : 도메인, login : 0 추가 ==> example
 	collection.insert_one({"info_id": "sj_domain", "title_tag": "도메인/", "info_num": 0})
 	print(":::: post_info CREATE Complete! ::::")
 	
@@ -30,16 +29,12 @@ def post_info(db):
 		collection.insert_one({"info_id": URL['info'], "title_tag": URL['title_tag'], "info_num": cnt})
 		cnt+=1
 	print(":::: post_info INSERT Complete! ::::")
-
-	#도메인 sj_domain 테이블 추가 + domain_list 추가
-	domain_insert(db)
-	print(":::: sj_domain INSERT Complete! ::::")
 	
 	
-	#최신 게시물 저장하는 lastly_post 테이블 생성
-	collection = db["lastly_post"]
+	#최신 게시물 저장하는 recent_post 테이블 생성
+	collection = db["recent_post"]
 
 	if collection.find().count() == 0:
 		for URL in List:
 			collection.insert_one({"info_id": URL['info'], "title": 0})
-		print(":::: lastly_post CREATE Complete! ::::")
+		print(":::: recent_post CREATE Complete! ::::")

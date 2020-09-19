@@ -38,7 +38,7 @@ def Parsing_list_url(URL, page_url):
 
 
 #포스트 url을 받으면, 그 포스트의 정보를 dictionary 형태로 반환
-def Parsing_post_data(driver, post_url, URL, lastly_post):
+def Parsing_post_data(driver, post_url, URL, recent_post):
 	post_data_prepare = []
 	domain = Domain_check(URL['url'])
 	end_date = date_cut(URL['info'])
@@ -128,20 +128,20 @@ def Parsing_post_data(driver, post_url, URL, lastly_post):
 
 			print(date, "::::", title)
 
-			if (date < end_date) or (title.upper() == lastly_post):
+			if (date < end_date) or (title.upper() == recent_post):
 				break
 			else:
 				post_data_prepare.append(post_data)
 
 		now_num = len(posts)
 		repeat_num += 1
-		if (date <= end_date) or (title.upper() == lastly_post) or date == "0년 0월 0일":
+		if (date <= end_date) or (title.upper() == recent_post) or date == "0년 0월 0일":
 			break
 	if len(post_data_prepare) == 0:
-		lastly_post = None
+		recent_post = None
 	else:
-		lastly_post = post_data_prepare[0]['title']
-	data = (post_data_prepare, lastly_post)
+		recent_post = post_data_prepare[0]['title']
+	data = (post_data_prepare, recent_post)
 	return data
 
 

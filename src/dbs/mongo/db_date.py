@@ -10,14 +10,14 @@ def init_date_collection(db):
 
 	#존재유무 파악
 	collist = db.list_collection_names()
-	if 'date' in collist:
-		print(":::: date ALREADY EXISTS! ::::")
+	if 'target_expire' in collist:
+		print(":::: target_expire ALREADY EXISTS! ::::")
 		return
 
 	for date_one in date_cut_dict_before.items():
 		query = {
 			"crawler": date_one[0],
-			"date_exp": date_one[1]
+			"expire_date": date_one[1]
 		}
-		db.date.insert_one(query)
+		db.target_expire.insert_one(query)
 	print(":::: date CREATE Complete! ::::")

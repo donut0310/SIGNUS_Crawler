@@ -19,7 +19,6 @@ from db_connect import *
 from datetime import datetime, timedelta
 from timeLogWrite import log_write, log_ready
 from error_handler import error_handler, error_logging
-from domain_insert import domain_insert
 
 #시작위치 및 끝 위치 입력 설정
 ST_NUM = None
@@ -59,7 +58,7 @@ if __name__ == '__main__':
 	print("TODAY : ", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "\n\n")
 
 
-	#post_info 테이블, sj_domain 테이블 생성, lastly_post 테이블 생성
+	#post_info 테이블, recent_post 테이블 생성
 	post_info(db)
 	#tag_info 테이블 생성
 	tag_info(db)
@@ -73,8 +72,6 @@ if __name__ == '__main__':
 	init_crawler_collection(db)
 	#Post_Info 전역변수생성
 	db_manager.get_post_infoes(db)
-	#도메인 생성
-	domain_insert(db)
 
 
 	#크롤러 관리자 갱신==========================
@@ -84,8 +81,8 @@ if __name__ == '__main__':
 	#현재 크롤링 가능 여부 확인
 	if Can_crawling(db):
 		print("\n\nCrawling Start!\n\n")
-		CRAWLER_MANAGER['crawling'] = True
-		CRAWLER_MANAGER['start_time'] = start_time
+		CRAWLER_MANAGER['is_crawling'] = True
+		CRAWLER_MANAGER['started_at'] = start_time
 		update_crawler_manager(db, CRAWLER_MANAGER)
 		#시작시간 Logging
 		BEFORE_DATA = log_ready(start_time, db)
@@ -111,15 +108,15 @@ if __name__ == '__main__':
 		print("\n\nCrawling End!\n\n")
 
 		#프로그램 종료시간
-		end_time = datetime.now()
+		ended_at = datetime.now()
 		try:
 			log_write(start_time, end_time, db, BEFORE_DATA)
 		except:
 			error_logging(e, '', '', db)
 
 		#크롤러 관리자 갱신==========================
-		CRAWLER_MANAGER['crawling'] = False
-		CRAWLER_MANAGER['end_time'] = end_time
+		CRAWLER_MANAGER['is_crawling'] = False
+		CRAWLER_MANAGER['ended_at'] = ended_at
 		update_crawler_manager(db, CRAWLER_MANAGER)
 		#===========================================
 	else:
