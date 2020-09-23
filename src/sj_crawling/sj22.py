@@ -3,7 +3,6 @@ from selenium import webdriver
 from url_list import List
 from post_wash import post_wash
 import datetime
-import tag
 import everytime
 import time
 from driver_agent import chromedriver
@@ -87,7 +86,6 @@ or URL['info'].split("_")[2] == 'club' or URL['info'].split("_")[2] == 'trade':
 	date = everytime_time(date)
 	post = bs.find("p", {'class': "large"}).get_text(" ", strip = True)
 	post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
-	tag_done = tag.tagging(URL, title)
 	if bs.find("figure", {"class": "attach"}) is not None:
 		try:
 			img = bs.find("figure", {"class": "attach"}).find("img")['src']		#게시글의 첫번째 이미지를 가져옴.
@@ -111,12 +109,10 @@ or URL['info'].split("_")[2] == 'club' or URL['info'].split("_")[2] == 'trade':
 			img = 5
 		
 
-	#post_data = {'title': ,'author': ,'date': ,'post': ,'tag':[],'fav_cnt':0,'view':0} 같은 형식
 	post_data['title'] = title.upper()
 	post_data['author'] = author.upper()
 	post_data['date'] = date
 	post_data['post'] = post.lower()
-	post_data['tag'] = tag_done 	# 태그1/태그2/태그3/태그4/.../ 같은 형식의 태그string이 들어간다.
 	post_data['img'] = img
 	post_data['url'] = post_url
 

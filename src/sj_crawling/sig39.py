@@ -3,7 +3,7 @@ from url_list import List
 from post_wash import post_wash
 import datetime
 from date_cut import date_cut_dict
-import tag
+import 
 from img_size import img_size
 
 
@@ -38,7 +38,6 @@ def Parsing_post_data(bs, post_url, URL):
 	date = str(datetime.datetime.strptime(date, "%Y.%m.%d %H:%M:%S"))
 	post = bs.find("div", {"class": "board_view_con"}).get_text(" ", strip = True)
 	post = post_wash(post)
-	tag_done = tag.tagging(URL, title)
 	if bs.find("div", {"class": "board_view_con"}).find("img") is None:
 		img = 1
 	else:
@@ -58,12 +57,10 @@ def Parsing_post_data(bs, post_url, URL):
 		else:
 			img = 1
 
-	#post_data = {'title': ,'author': ,'date': ,'post': ,'tag':[],'fav_cnt':0,'view':0} 같은 형식
 	post_data['title'] = title.upper()
 	post_data['author'] = author.upper()
 	post_data['date'] = date
 	post_data['post'] = post.lower()
-	post_data['tag'] = tag_done 	# 태그1/태그2/태그3/태그4/.../ 같은 형식의 태그string이 들어간다.
 	post_data['img'] = img
 	post_data['url'] = post_url
 

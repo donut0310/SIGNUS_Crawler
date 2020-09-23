@@ -2,7 +2,6 @@ from url_list import List
 from post_wash import post_wash
 import datetime
 from date_cut import date_cut
-import tag
 import udream
 
 
@@ -56,7 +55,6 @@ def Parsing_post_data(bs, URL):
 				date = date + " 00:00:00"
 				date = str(datetime.datetime.strptime(date, "%Y.%m.%d. %H:%M:%S"))
 			phrase = "0"
-			tag_done = tag.tagging(URL, title)
 			url = post.find("td", {"class": "td_article"}).find("a", {"class": "article"})["href"]
 			url = domain + url
 			img = 2
@@ -65,7 +63,6 @@ def Parsing_post_data(bs, URL):
 			post_data['author'] = author.upper()
 			post_data['date'] = date
 			post_data['post'] = phrase.lower()
-			post_data['tag'] = tag_done		# 태그1/태그2/태그3/태그4/.../ 같은 형식의 태그string이 들어간다.
 			post_data['img'] = img
 			post_data['url'] = url
 	
@@ -86,7 +83,6 @@ def Parsing_post_data(bs, URL):
 				date = date + " 00:00:00"
 				date = str(datetime.datetime.strptime(date, "%Y.%m.%d. %H:%M:%S"))
 				phrase = "0"
-				tag_done = tag.tagging(URL, title)
 				url = post.find("span", {"class": "aaa"}).find("a")['href']
 				url = domain + url
 				img = 2
@@ -95,7 +91,6 @@ def Parsing_post_data(bs, URL):
 				post_data['author'] = author.upper()
 				post_data['date'] = date
 				post_data['post'] = phrase.upper()
-				post_data['tag'] = tag_done
 				post_data['img'] = img	
 				post_data['url'] = url
 		

@@ -51,7 +51,7 @@ def db_manager(URL, post_data_prepare, db):
 
 	#게시판에 맞는 테이블 없으면 생성
 	##### post_id: 게시물 식별값, title: 제목, author: 작성자, date: 작성일, post: 게시물내용, img: OpenGraph용 url #####
-	##### tag: 태그, info: 게시판 정보, fav_cnt: 좋아요개수, view: view 개수										 #####
+	##### info: 게시판 정보, fav_cnt: 좋아요개수, view: view 개수										 #####
 	#post_data_prepare 을 필터링 check를 해준다.
 	for post in post_data_prepare:
 		if URL['info'].split('_')[0] in ["sj34"]:
@@ -110,7 +110,7 @@ def db_manager(URL, post_data_prepare, db):
 				post_one["token"] = soojle_tokenize("", post_one["post"].lower())
 			else:
 				post_one["token"] = soojle_tokenize(post_one["title"].lower(), post_one["post"].lower())
-			post_one["token"] = list(post_one["title_token"] + post_one["token"] + post_one['tag'])
+			post_one["token"] = list(URL['title_tag'] + post_one["token"])
 			# post_one["login"] = URL["login"]
 			del post_one["author"]
 			if 'end_date' in post_one.keys():
@@ -128,9 +128,9 @@ def db_manager(URL, post_data_prepare, db):
 			post_one["post"] = post_one["post"]#[:200]
 			topic = []
 			if 'token' in post_one:
-				topic_str = post_one["tag"] + post_one["token"]
+				topic_str = post_one["token"]
 			else:
-				topic_str = post_one["tag"]
+				topic_str = []
 			post_one["topic"] = get_topics(topic_str).tolist()
 			post_one["ft_vector"] = get_doc_vector(topic_str).tolist()
 			post_one["popularity"] = 0;

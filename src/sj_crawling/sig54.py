@@ -3,7 +3,6 @@ from post_wash import post_wash
 from datetime import timedelta
 import datetime
 from date_cut import date_cut_dict
-import tag
 from img_size import img_size
 from url_parser import URLparser
 from bs4 import BeautifulSoup
@@ -80,7 +79,6 @@ def Parsing_post_data(bs, post_url, URL):
 		print("::::",date)
 		post = item.find("dd", {"class": "txt_inline"}).find_next('dd').get_text(" ", strip = True)
 		post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
-		tag_done = tag.tagging(URL, title)
 		list_url = item.find("dt").find("a")['href']
 		driver_post = URLparser(list_url)
 		bs_post = BeautifulSoup(driver_post, 'html.parser')
@@ -107,12 +105,10 @@ def Parsing_post_data(bs, post_url, URL):
 			else:
 				img = 7
 		
-		#post_data = {'title': ,'author': ,'date': ,'post': ,'tag':[], img:1, 'view':0} 같은 형식
 		post_data['title'] = title.upper()
 		post_data['author'] = author
 		post_data['date'] = date
 		post_data['post'] = post.lower()
-		post_data['tag'] = tag_done 	
 		post_data['img'] = img
 		post_data['url'] = list_url
 		print(date, "::::", title)	#현재 크롤링한 포스트의 date, title 출력

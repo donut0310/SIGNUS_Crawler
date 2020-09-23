@@ -249,7 +249,8 @@ List = (\
 	{'url': "http://physics.sejong.ac.kr/bbs/zboard.php?id=news_notice&page=",\
 	'info': "sj10_pysics_notice",\
 	'title_tag' : ["교내", "물리학과", "공지"], 'login' : 0},\
-	#세종대학교 일어일문학과 홈페이지 [sj11_japanese_notice]
+	#세종대학교 일어일문
+	# 학과 홈페이지 [sj11_japanese_notice]
 	#58
 	{'url': "http://japan.sejong.ac.kr/index.php?mid=dpt_notice&page=",\
 	'info': "sj11_japanese_notice",\

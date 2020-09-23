@@ -3,7 +3,6 @@ from selenium import webdriver
 from url_list import List
 from post_wash import post_wash
 import datetime
-import tag
 import campuspick
 from driver_agent import chromedriver
 from date_cut import date_cut
@@ -96,7 +95,6 @@ def Parsing_post_data(driver, post_url, URL, recent_post):
 					date = str(datetime.datetime.strptime(date, "%Y . %m . %d %H:%M:%S"))
 					post = bs_post.find("div",{"class":"col-md-12 content_start"}).get_text(" ",strip = True)
 					post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
-					tag_done = tag.tagging(URL, title)
 					if bs_post.find("div", {"class": "col-md-12 single_header no_pc"}) is None:
 						img = 3
 					else:
@@ -119,7 +117,6 @@ def Parsing_post_data(driver, post_url, URL, recent_post):
 					post_data['author'] = ""
 					post_data['date'] = date
 					post_data['post'] = post.lower()
-					post_data['tag'] = tag_done
 					post_data['img'] = img
 					post_data['url'] = url
 					print(date, "::::", title)

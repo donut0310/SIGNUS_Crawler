@@ -2,7 +2,6 @@ from url_list import List
 from post_wash import post_wash
 import datetime
 from date_cut import date_cut_dict
-import tag
 from img_size import img_size
 
 
@@ -38,14 +37,11 @@ def Parsing_post_data(bs, post_url, URL):
 	post = bs.find("td", {"class": "board_content"}).get_text(" ", strip = True)
 	post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
 	img = 1
-	tag_done = tag.tagging(URL, title)
 
-	#post_data = {'title': ,'author': ,'date': ,'post': ,'tag':[], img:1, 'view':0} 같은 형식
 	post_data['title'] = title.upper()
 	post_data['author'] = author.upper()
 	post_data['date'] = date
 	post_data['post'] = post.lower()
-	post_data['tag'] = tag_done 	# 태그1/태그2/태그3/태그4/.../ 같은 형식의 태그string이 들어간다.
 	post_data['img'] = img
 	post_data['url'] = post_url
 

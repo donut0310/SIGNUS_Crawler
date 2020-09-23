@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 from url_list import List
 from post_wash import post_wash
 import datetime
-import tag
 import daum
 from driver_agent import chromedriver
 from date_cut import date_cut
@@ -143,7 +142,6 @@ def Parsing_post_data(driver, post_url, URL):
 	post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
 	#세종대역은 포스트글이 시작할 때, 항상 112글자의 코드가 같이 긁힌다. 그러니 제외해주자.
 	post = post[67:].strip()	#post글을 3000자 까지 읽기위한 작업
-	tag_done = tag.tagging(URL, title)
 	if bs.find("div", {"id": "user_contents"}).find("img") is None:
 		img = 3
 	else:
@@ -163,12 +161,10 @@ def Parsing_post_data(driver, post_url, URL):
 		else:
 			img = 3		
 
-	#post_data = {'title': ,'author': ,'date': ,'post': ,'tag':[],'fav_cnt':0,'view':0} 같은 형식
 	post_data['title'] = title.upper()
 	post_data['author'] = author.upper()
 	post_data['date'] = date
 	post_data['post'] = post.lower()
-	post_data['tag'] = tag_done 	# 태그1/태그2/태그3/태그4/.../ 같은 형식의 태그string이 들어간다.
 	post_data['img'] = img
 	post_data['url'] = post_url
 

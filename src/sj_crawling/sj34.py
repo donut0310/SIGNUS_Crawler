@@ -4,7 +4,6 @@ from db_manager import db_manager
 from selenium import webdriver
 from post_wash import post_wash
 import datetime
-import tag
 import everytime
 import time
 from driver_agent import chromedriver
@@ -82,7 +81,6 @@ def Parsing_post_data(driver, post_url, URL, board_tag, db):
 	date = everytime_time(date)
 	post = bs.find("p", {'class': "large"}).get_text(" ", strip = True)
 	post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
-	tag_done = tag.tagging(URL, post)
 	if bs.find("figure", {"class": "attach"}) is not None:
 		try:
 			img = bs.find("figure", {"class": "attach"}).find("img")['src']		#게시글의 첫번째 이미지를 가져옴.
@@ -106,7 +104,6 @@ def Parsing_post_data(driver, post_url, URL, board_tag, db):
 			img = 5
 	img = 5
 
-	#post_data = {'title': ,'author': ,'date': ,'post': ,'tag':[],'fav_cnt':0,'view':0} 같은 형식
 	post_data['title'] = title.upper()
 	post_data['author'] = author.upper()
 	post_data['date'] = date
@@ -115,7 +112,6 @@ def Parsing_post_data(driver, post_url, URL, board_tag, db):
 	for remove_tag in SJ34_DELETE_TAGS:
 		board_tag = board_tag.replace(remove_tag, "")
 	tag_done.append(board_tag)
-	post_data['tag'] = tag_done
 	post_data['img'] = img
 	post_data['url'] = post_url
 	post_data['info'] = URL['info'].split("_")[1] + "_" + board_tag

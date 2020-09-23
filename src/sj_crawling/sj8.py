@@ -4,7 +4,6 @@ from url_list import List
 from post_wash import post_wash
 import datetime
 from date_cut import date_cut
-import tag
 from img_size import img_size
 
 
@@ -61,7 +60,6 @@ def Parsing_post_data(bs, URL):
 		except:
 			phrase = "0"
 		phrase = post_wash(phrase)
-		tag_done = tag.tagging(URL, title)
 		url = post.find("a")["href"]
 		#뉴스 url 에 들어가서 img를 가져오기위한 작업
 		domain = Domain_check(url)	#뉴스 url 도메인
@@ -96,7 +94,6 @@ def Parsing_post_data(bs, URL):
 		post_data['author'] = author.upper()
 		post_data['date'] = date
 		post_data['post'] = phrase.lower()
-		post_data['tag'] = tag_done		# 태그1/태그2/태그3/태그4/.../ 같은 형식의 태그string이 들어간다.
 		post_data['img'] = img
 		post_data['url'] = url
 

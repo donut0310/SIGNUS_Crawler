@@ -3,7 +3,6 @@ from post_wash import post_wash
 from datetime import timedelta
 import datetime
 from date_cut import date_cut_dict
-import tag
 from img_size import img_size
 
 
@@ -41,7 +40,6 @@ def Parsing_post_data(bs, post_url, URL):
 		date = str(date)
 	post = bs.find("div", {"class": "con"}).get_text(" ", strip = True)
 	post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
-	tag_done = tag.tagging(URL, title)
 	if bs.find("meta", {"property": "og:image"}) is None:
 		img = 7
 	else:
@@ -65,12 +63,10 @@ def Parsing_post_data(bs, post_url, URL):
 		else:
 			img = 7
 
-	#post_data = {'title': ,'author': ,'date': ,'post': ,'tag':[], img:1, 'view':0} 같은 형식
 	post_data['title'] = title.upper()
 	post_data['author'] = author
 	post_data['date'] = date
 	post_data['post'] = post.lower()
-	post_data['tag'] = tag_done 	
 	post_data['img'] = img
 	post_data['url'] = post_url
 	post_data['end_date'] = str(end_date)

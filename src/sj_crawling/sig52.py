@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 from url_list import List
 from post_wash import post_wash
 import datetime
-import tag
 import everytime
 from driver_agent import chromedriver
 from date_cut import date_cut
@@ -73,7 +72,6 @@ def Parsing_post_data(driver, post_url, URL):
 		date = str(datetime.datetime.strptime(date, "%Y.%m.%d %H:%M:%S"))
 		post = bs.find("div", {"class": "view-txt"}).get_text(" ", strip = True)
 		post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
-		tag_done = tag.tagging(URL, title)
 		if bs.find("meta", {"property": "og:image"}) is None:
 			img = 7
 		else:
@@ -109,7 +107,6 @@ def Parsing_post_data(driver, post_url, URL):
 		date = str(datetime.datetime.strptime(date, "%Y.%m.%d %H:%M:%S"))
 		post = bs.find("div", {"class": "view-txt"}).get_text(" ", strip = True)
 		post = post_wash(post)		#post 의 공백을 전부 제거하기 위함
-		tag_done = tag.tagging(URL, title)
 		if bs.find("meta", {"property": "og:image"}) is None:
 			img = 7
 		else:
@@ -133,12 +130,10 @@ def Parsing_post_data(driver, post_url, URL):
 				img = 7
 		
 
-	#post_data = {'title': ,'author': ,'date': ,'post': ,'tag':[],'fav_cnt':0,'view':0} 같은 형식
 	post_data['title'] = title.upper()
 	post_data['author'] = ''
 	post_data['date'] = date
 	post_data['post'] = post.lower()
-	post_data['tag'] = tag_done 	# 태그1/태그2/태그3/태그4/.../ 같은 형식의 태그string이 들어간다.
 	post_data['img'] = img
 	post_data['url'] = post_url
 

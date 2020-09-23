@@ -14,11 +14,11 @@ from date_cut import date_init
 from datetime import datetime
 from info_id import post_info
 from posts_cnt import posts_cnt
-from tag_info import tag_info
 from db_connect import *
 from datetime import datetime, timedelta
 from timeLogWrite import log_write, log_ready
 from error_handler import error_handler, error_logging
+from db_category import create_table_category
 
 #시작위치 및 끝 위치 입력 설정
 ST_NUM = None
@@ -57,11 +57,10 @@ if __name__ == '__main__':
 	print(":::< Signus Project >:::")
 	print("TODAY : ", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "\n\n")
 
-
+	#SJ_CATEGORY 테이블 생성
+	create_table_category(db)
 	#post_info 테이블, recent_post 테이블 생성
 	post_info(db)
-	#tag_info 테이블 생성
-	tag_info(db)
 	#url 테이블 생성
 	init_url_collection(db)
 	#date 테이블 생성 밎 dictionary화
@@ -110,7 +109,7 @@ if __name__ == '__main__':
 		#프로그램 종료시간
 		ended_at = datetime.now()
 		try:
-			log_write(start_time, end_time, db, BEFORE_DATA)
+			log_write(start_time, ended_at, db, BEFORE_DATA)
 		except:
 			error_logging(e, '', '', db)
 
